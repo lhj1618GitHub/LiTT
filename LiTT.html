@@ -46,7 +46,9 @@ input[type="text"]::placeholder{color:var(--text-secondary)}
 .help-content p{margin-bottom:5px}
 .help-content ul,.help-content ol{margin-left:15px;margin-bottom:5px}
 .help-content code{background:var(--bg-secondary);padding:2px 5px;border-radius:3px;font-family:Courier New,monospace}
-.toast{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);padding:8px 16px;background:var(--success);color:#fff;border-radius:4px;z-index:1001;opacity:0;transition:opacity .3s}
+.help-link{display:inline-block;margin:4px 0 10px;padding:6px 12px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:4px;color:var(--accent);text-decoration:none;font-size:14px;transition:.3s}
+.help-link:hover{background:var(--accent);color:#fff;text-decoration:none}
+.toast{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);padding:8px 16px;background:var(--success);color:#fff;border-radius:4px;z-index:1001;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
 
 .merge-overlay{
@@ -72,9 +74,7 @@ input[type="text"]::placeholder{color:var(--text-secondary)}
   white-space:pre-wrap;
   word-wrap:break-word;
 }
-/* 修复1：高度对齐，垂直拉伸 */
 .merge-input-row{display:flex;gap:8px;align-items:stretch}
-/* 修复2：宽度100%，与输出框一致 */
 #mergeInput{
   width:100%;
   flex:1;
@@ -87,7 +87,9 @@ input[type="text"]::placeholder{color:var(--text-secondary)}
   white-space:pre-wrap;
   word-wrap:break-word;
   overflow-y:auto;
-  resize:none
+  resize:none;
+  font-family:Courier New,monospace;
+  font-size:14px;
 }
 .merge-output{
   padding:8px;
@@ -97,7 +99,9 @@ input[type="text"]::placeholder{color:var(--text-secondary)}
   min-height:100px;
   white-space:pre-wrap;
   word-wrap:break-word;
-  overflow-y:auto
+  overflow-y:auto;
+  font-family:Courier New,monospace;
+  font-size:14px;
 }
 .merge-buttons{display:flex;gap:8px}
 .merge-action-btn{flex:1;padding:10px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:4px;color:var(--text-primary);cursor:pointer}
@@ -125,7 +129,7 @@ input[type="text"],.clear-btn{padding:6px;font-size:12px}
 <div class="toggle-section">
 <label class="switch"><input type="checkbox" id="toggleSwitch"><span class="slider"></span></label>
 <span>开屏广告</span>
-<a href="https://gitee.com/lhj1618/litiaotiao-autojs-android-app" class="link" target="_blank">下载李跳跳/autojs</a>
+<a href="https://gitee.com/lhj1618/litiaotiao-autojs-android-app" class="link" target="_blank" rel="noopener">下载李跳跳/autojs</a>
 </div>
 </header>
 
@@ -142,17 +146,17 @@ input[type="text"],.clear-btn{padding:6px;font-size:12px}
 </div>
 <div class="input-row" id="checkRow">
 <span class="input-label">检查次数：</span>
-<div class="input-wrapper"><input type="text" id="checkInput" placeholder="默认留空,过大影响耗电"></div>
+<div class="input-wrapper"><input type="text" id="checkInput" inputmode="numeric" placeholder="默认留空,过大影响耗电"></div>
 <button class="clear-btn" id="clearCheck">清空</button>
 </div>
 <div class="input-row" id="timesRow">
 <span class="input-label">点击次数：</span>
-<div class="input-wrapper"><input type="text" id="timesInput" placeholder="默认留空"></div>
+<div class="input-wrapper"><input type="text" id="timesInput" inputmode="numeric" placeholder="默认留空"></div>
 <button class="clear-btn" id="clearTimes">清空</button>
 </div>
 <div class="input-row" id="delayRow">
 <span class="input-label">点击延时：</span>
-<div class="input-wrapper"><input type="text" id="delayInput" placeholder="默认留空,单位:ms"></div>
+<div class="input-wrapper"><input type="text" id="delayInput" inputmode="numeric" placeholder="默认留空,单位:ms"></div>
 <button class="clear-btn" id="clearDelay">清空</button>
 </div>
 </div>
@@ -199,6 +203,7 @@ input[type="text"],.clear-btn{padding:6px;font-size:12px}
 <span class="close-btn" id="closeModal">&times;</span>
 <div class="help-content">
 <h2>规则说明页</h2>
+<p><a class="help-link" href="https://lhj1618github.github.io/html/Tool/李跳跳进阶指南.html" target="_blank" rel="noopener">📖 查看《李跳跳进阶指南》</a></p>
 <p>注意：规则里面的文字默认是模糊匹配的，符号都是英文符号；无空格。</p>
 <h3>一：开屏广告规则</h3>
 <p>1.覆盖默认规则：<code>{"keywords":["xxx"]}</code></p>
@@ -216,7 +221,7 @@ input[type="text"],.clear-btn{padding:6px;font-size:12px}
 <p><code>{"popup_rules":[{"id":"ooo","action":"GLOBAL_ACTION_BACK"}]}</code></p>
 <p>意思是：当检测到ooo这几个文字的时候，就自动使用手机返回键。</p>
 <h4>②倒计时/多个广告版：</h4>
-<p><code>{"popup_rules":[{"id":"还剩&秒","action":"还剩&秒",times:0},{"id":"广告","action":"关闭按钮"}],"unite_popup_rules":true}</code></p>
+<p><code>{"popup_rules":[{"id":"还剩&秒","action":"还剩&秒","times":0},{"id":"广告","action":"关闭按钮"}],"unite_popup_rules":true}</code></p>
 <h4>③进阶版：</h4>
 <p><code>{"popup_rules":[{"id":"+ooo&-ppp","action":"=xxx"}]}</code></p>
 <p>设置强制点击：<code>{"click_way_popup":1}</code></p>
@@ -235,186 +240,280 @@ input[type="text"],.clear-btn{padding:6px;font-size:12px}
 <div class="toast" id="toast">复制成功！</div>
 
 <script>
-const dom = {};
-['toggleSwitch','triggerInput','targetInput','checkInput','timesInput','delayInput',
-'clearTrigger','clearTarget','clearCheck','clearTimes','clearDelay',
-'setControl','setGeneral','setContinuous','output','copyBtn','helpBtn','helpModal','closeModal','toast',
-'triggerRow','checkRow','timesRow','delayRow','mergeBtn','mergeOverlay','mergeCurrentRule','mergeInput',
-'clearMergeInput','mergeOutput','doMergeBtn','copyMergeBtn','editBtn'].forEach(id=>dom[id]=document.getElementById(id));
+(function () {
+  'use strict';
 
-let ooo='',xxx='GLOBAL_ACTION_BACK';
-let sum='"search_times_popup":1',timesParam='',d1='"delay_popup":T',d2='"delay":T';
-const defaultTip=dom.output.textContent;
+  const $ = id => document.getElementById(id);
 
-[dom.checkInput,dom.timesInput,dom.delayInput].forEach(el=>{
-  el.addEventListener('input',()=>el.value=el.value.replace(/[^\d]/g,''));
-});
+  const dom = {};
+  [
+    'toggleSwitch','triggerInput','targetInput','checkInput','timesInput','delayInput',
+    'clearTrigger','clearTarget','clearCheck','clearTimes','clearDelay',
+    'setControl','setGeneral','setContinuous','output','copyBtn','helpBtn','helpModal',
+    'closeModal','toast','triggerRow','checkRow','timesRow','delayRow',
+    'mergeBtn','mergeOverlay','mergeCurrentRule','mergeInput','clearMergeInput',
+    'mergeOutput','doMergeBtn','copyMergeBtn','editBtn'
+  ].forEach(id => { dom[id] = $(id); });
 
-function fmt(s){
-  s=s.trim();
-  let m;
-  if((m=s.match(/\s*=\s*\(([^)]+)\)/))||(m=s.match(/\s*=\s*([^=]+)$/)))return m[1].trim();
-  return s;
-}
+  const DEFAULT_TIP = dom.output.textContent;
 
-function toast(msg){
-  dom.toast.textContent=msg;
-  dom.toast.classList.add('show');
-  setTimeout(()=>dom.toast.classList.remove('show'),2000);
-}
+  /* ---------------- 通用工具 ---------------- */
 
-function copy(text){
-  const t=text||dom.output.textContent.trim();
-  if(!t)return toast('无内容可复制');
-  navigator.clipboard?.writeText(t).then(()=>toast('复制成功')).catch(fallback);
-  function fallback(){
-    const ta=document.createElement('textarea');
-    ta.value=t;ta.style.opacity=0;document.body.appendChild(ta);
-    ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('复制成功');
+  let toastTimer = null;
+  function toast(msg) {
+    dom.toast.textContent = msg;
+    dom.toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => dom.toast.classList.remove('show'), 1800);
   }
-}
 
-function buildParams(){
-  const arr=[];
-  if(dom.checkInput.value)arr.push(sum);
-  if(dom.delayInput.value)arr.push(dom.toggleSwitch.checked?d2:d1);
-  return arr.length?','+arr.join(','):'';
-}
+  function copyText(text) {
+    if (!text) return toast('无内容可复制');
 
-function resetTip(){dom.output.textContent=defaultTip}
+    const ok = () => toast('复制成功');
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+      document.body.appendChild(ta);
+      ta.select();
+      let done = false;
+      try { done = document.execCommand('copy'); } catch (e) { done = false; }
+      document.body.removeChild(ta);
+      done ? ok() : toast('复制失败，请手动选择复制');
+    };
 
-dom.toggleSwitch.addEventListener('change',()=>{
-  const v=dom.toggleSwitch.checked;
-  dom.triggerRow.style.display=v?'none':'flex';
-  dom.delayRow.style.display=v?'none':'flex';
-  dom.timesRow.style.display=v?'none':'flex';
-  dom.setControl.style.display=v?'none':'block';
-  dom.setContinuous.style.display=v?'none':'block';
-});
-
-dom.triggerInput.addEventListener('blur',()=>ooo=fmt(dom.triggerInput.value));
-dom.targetInput.addEventListener('blur',()=>xxx=fmt(dom.targetInput.value));
-dom.checkInput.addEventListener('blur',()=>sum=dom.checkInput.value?`"search_times_popup":${dom.checkInput.value}`:'"search_times_popup":1');
-dom.timesInput.addEventListener('blur',()=>timesParam=dom.timesInput.value?`"times":${dom.timesInput.value}`:'');
-dom.delayInput.addEventListener('blur',()=>{
-  const v=dom.delayInput.value;
-  if(!v){d1='"delay_popup":T';d2='"delay":T'}
-  else{dom.toggleSwitch.checked?(d2=`"delay":${v}`):(d1=`"delay_popup":${v}`);}
-});
-
-dom.clearTrigger.addEventListener('click',()=>{dom.triggerInput.value='';ooo='';resetTip()});
-dom.clearTarget.addEventListener('click',()=>{dom.targetInput.value='';xxx='GLOBAL_ACTION_BACK';resetTip()});
-dom.clearCheck.addEventListener('click',()=>{dom.checkInput.value='';sum='"search_times_popup":1';resetTip()});
-dom.clearTimes.addEventListener('click',()=>{dom.timesInput.value='';timesParam='';resetTip()});
-dom.clearDelay.addEventListener('click',()=>{dom.delayInput.value='';d1='"delay_popup":T';d2='"delay":T';resetTip()});
-
-dom.setControl.addEventListener('click',()=>{
-  let rule={id:ooo,action:xxx};
-  if(timesParam)rule.times=Number(dom.timesInput.value);
-  let s=JSON.stringify(rule);
-  s=s.slice(0,-1)+buildParams()+'}';
-  dom.output.textContent=s;
-});
-
-dom.setGeneral.addEventListener('click',()=>{
-  if(dom.toggleSwitch.checked){
-    let rule={keywords_append:[xxx]};
-    if(dom.checkInput.value)rule.search_times=Number(dom.checkInput.value);
-    dom.output.textContent=JSON.stringify(rule);
-  }else{
-    let rule={popup_rules:[{id:ooo,action:xxx}]};
-    if(timesParam)rule.popup_rules[0].times=Number(dom.timesInput.value);
-    let s=JSON.stringify(rule);
-    s=s.slice(0,-1)+buildParams()+'}';
-    dom.output.textContent=s;
-  }
-});
-
-dom.setContinuous.addEventListener('click',()=>{
-  let rule={popup_rules:[{id:"还剩&秒",action:"还剩&秒",times:0},{id:ooo,action:xxx}],unite_popup_rules:true};
-  let s=JSON.stringify(rule);
-  s=s.slice(0,-1)+buildParams()+'}';
-  dom.output.textContent=s;
-});
-
-// 修复后：正确提取规则项 + 参数去重 + 全部放在 ] 后面
-function extractItems(str) {
-  str = str.replace(/\s/g, '');
-  const items = [];
-  const hasPopup = /"popup_rules":\[([\s\S]*?)\]/.test(str);
-  if (hasPopup) {
-    const m = str.match(/"popup_rules":\[([\s\S]*?)\]/);
-    const c = m[1];
-    let d = 0, s = 0;
-    for (let i = 0; i < c.length; i++) {
-      if (c[i] === '{') d++;
-      if (c[i] === '}') d--;
-      if (d === 0 && c[i] === ',') {
-        items.push(c.slice(s, i));
-        s = i + 1;
-      }
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(text).then(ok, fallback);
+    } else {
+      fallback();
     }
-    if (s < c.length) items.push(c.slice(s));
-  } else {
-    items.push(str);
   }
-  return items.filter(i => i);
-}
 
-function extractParams(str) {
-  str = str.replace(/\s/g, '');
-  const params = [];
-  const regex = /("(unite_popup_rules|search_times_popup|delay_popup|delay|search_times)":[^,}]+)/g;
-  let m;
-  while ((m = regex.exec(str)) !== null) params.push(m[1]);
-  const map = {}, res = [];
-  params.forEach(p => {
-    const k = p.split('":')[0];
-    if (!map[k]) { map[k] = 1; res.push(p); }
+  function readInt(input) {
+    const v = input.value.trim();
+    if (!v) return null;
+    const n = parseInt(v, 10);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+
+  function norm(str) {
+    const s = (str || '').trim();
+    let m = s.match(/^=\s*\(([^)]*)\)$/);
+    if (m) return m[1].trim();
+    m = s.match(/^=\s*([^=]+)$/);
+    if (m) return m[1].trim();
+    return s;
+  }
+
+  const getTrigger = () => norm(dom.triggerInput.value);
+  const getTarget = () => norm(dom.targetInput.value) || 'GLOBAL_ACTION_BACK';
+
+  function popupParams() {
+    const params = [];
+    const st = readInt(dom.checkInput);
+    if (st !== null) params.push('"search_times_popup":' + st);
+    const dl = readInt(dom.delayInput);
+    if (dl !== null) params.push('"delay_popup":' + dl);
+    return params;
+  }
+
+  function withParams(obj, params) {
+    const s = JSON.stringify(obj);
+    if (!params.length) return s;
+    return s.slice(0, -1) + ',' + params.join(',') + '}';
+  }
+
+  function output(text) { dom.output.textContent = text; }
+  function resetTip() { dom.output.textContent = DEFAULT_TIP; }
+
+  /* ---------------- 三种规则生成 ---------------- */
+
+  function makeControl() {
+    const id = getTrigger();
+    if (!id) return toast('请填写触发条件');
+
+    const rule = { id: id, action: getTarget() };
+    const times = readInt(dom.timesInput);
+    if (times !== null) rule.times = times;
+
+    output(withParams(rule, popupParams()));
+  }
+
+  function makeGeneral() {
+    if (dom.toggleSwitch.checked) {
+      const kw = norm(dom.targetInput.value);
+      if (!kw) return toast('请填写跳过按钮文字 / id / bounds');
+
+      const rule = { keywords_append: [kw] };
+      const st = readInt(dom.checkInput);
+      if (st !== null) rule.search_times = st;
+
+      output(JSON.stringify(rule));
+      return;
+    }
+
+    const id = getTrigger();
+    if (!id) return toast('请填写触发条件');
+
+    const item = { id: id, action: getTarget() };
+    const times = readInt(dom.timesInput);
+    if (times !== null) item.times = times;
+
+    output(withParams({ popup_rules: [item] }, popupParams()));
+  }
+
+  function makeContinuous() {
+    const id = getTrigger();
+    if (!id) return toast('请填写触发条件');
+
+    const rule = {
+      popup_rules: [
+        { id: '还剩&秒', action: '还剩&秒', times: 0 },
+        { id: id, action: getTarget() }
+      ],
+      unite_popup_rules: true
+    };
+
+    output(withParams(rule, popupParams()));
+  }
+
+  dom.setControl.addEventListener('click', makeControl);
+  dom.setGeneral.addEventListener('click', makeGeneral);
+  dom.setContinuous.addEventListener('click', makeContinuous);
+
+  /* ---------------- 输入框行为 ---------------- */
+
+  [dom.checkInput, dom.timesInput, dom.delayInput].forEach(input => {
+    input.addEventListener('input', () => {
+      const clean = input.value.replace(/\D/g, '');
+      if (input.value !== clean) input.value = clean;
+    });
   });
-  return res;
-}
 
-dom.doMergeBtn.addEventListener('click',()=>{
-  const c = dom.mergeCurrentRule.textContent.trim().replace(/\s/g,'');
-  const i = dom.mergeInput.value.trim().replace(/\s/g,'');
-  if(!c||!i)return toast('请填写完整规则');
-  
-  try{
-    const cItems = extractItems(c);
-    const iItems = extractItems(i);
-    const allItems = [...new Set([...cItems,...iItems])];
-    const cParams = extractParams(c);
-    const iParam = extractParams(i);
-    const allParams = [...new Set([...cParams,...iParam])];
-    const pStr = allParams.length ? ','+allParams.join(',') : '';
-    const wrap = c.includes('popup_rules')||i.includes('popup_rules');
-    const r = wrap ? `{"popup_rules":[${allItems.join(',')}]${pStr}}` : allItems.join(',');
-    dom.mergeOutput.textContent = r;
-  }catch(e){
-    toast('格式错误，合并失败');
+  dom.clearTrigger.addEventListener('click', () => { dom.triggerInput.value = ''; resetTip(); });
+  dom.clearTarget.addEventListener('click', () => { dom.targetInput.value = ''; resetTip(); });
+  dom.clearCheck.addEventListener('click', () => { dom.checkInput.value = ''; resetTip(); });
+  dom.clearTimes.addEventListener('click', () => { dom.timesInput.value = ''; resetTip(); });
+  dom.clearDelay.addEventListener('click', () => { dom.delayInput.value = ''; resetTip(); });
+
+  function syncMode() {
+    const splash = dom.toggleSwitch.checked;
+
+    dom.triggerRow.style.display = splash ? 'none' : 'flex';
+    dom.delayRow.style.display = splash ? 'none' : 'flex';
+    dom.timesRow.style.display = splash ? 'none' : 'flex';
+    dom.setControl.style.display = splash ? 'none' : 'block';
+    dom.setContinuous.style.display = splash ? 'none' : 'block';
+
+    dom.targetInput.placeholder = splash
+      ? '跳过按钮文字/id/bounds'
+      : '用返回键时留空/id/bounds/文字';
   }
-});
+  dom.toggleSwitch.addEventListener('change', syncMode);
+  syncMode();
 
-dom.mergeBtn.addEventListener('click',()=>{
-  dom.mergeCurrentRule.textContent = dom.output.textContent.trim();
-  dom.mergeOverlay.style.display = 'flex';
-});
+  /* ---------------- 规则合并 ---------------- */
 
-dom.editBtn.addEventListener('click',()=>{
-  dom.mergeOverlay.style.display = 'none';
-});
+  function parseRule(text) {
+    try {
+      const obj = JSON.parse(text);
+      if (obj && typeof obj === 'object' && !Array.isArray(obj)) return obj;
+    } catch (e) { /* 忽略 */ }
+    return null;
+  }
 
-dom.clearMergeInput.addEventListener('click',()=>{
-  dom.mergeInput.value = '';
-  dom.mergeOutput.textContent = '';
-});
+  function arr(v) { return Array.isArray(v) ? v : []; }
 
-dom.copyMergeBtn.addEventListener('click',()=>copy(dom.mergeOutput.textContent));
-dom.copyBtn.addEventListener('click',()=>copy());
-dom.helpBtn.addEventListener('click',()=>dom.helpModal.style.display='flex');
-dom.closeModal.addEventListener('click',()=>dom.helpModal.style.display='none');
-window.addEventListener('click',e=>e.target===dom.helpModal&&(dom.helpModal.style.display='none'));
+  function uniq(list) {
+    const seen = new Set();
+    const out = [];
+    for (const item of list) {
+      const key = JSON.stringify(item);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(item);
+    }
+    return out;
+  }
+
+  function mergeRules(curText, incText) {
+    const cur = parseRule(curText);
+    const inc = parseRule(incText);
+    if (!cur) throw new Error('当前规则不是合法的 JSON 对象');
+    if (!inc) throw new Error('待合并规则不是合法的 JSON 对象');
+
+    const out = {};
+
+    const popup = uniq([...arr(cur.popup_rules), ...arr(inc.popup_rules)]);
+    if (popup.length) out.popup_rules = popup;
+
+    const keywords = uniq([...arr(cur.keywords), ...arr(inc.keywords)]);
+    if (keywords.length) out.keywords = keywords;
+
+    const keywordsAppend = uniq([...arr(cur.keywords_append), ...arr(inc.keywords_append)]);
+    if (keywordsAppend.length) out.keywords_append = keywordsAppend;
+
+    const skip = new Set(['popup_rules', 'keywords', 'keywords_append']);
+    const keys = new Set([...Object.keys(cur), ...Object.keys(inc)]);
+    keys.forEach(k => {
+      if (skip.has(k)) return;
+      out[k] = (k in cur) ? cur[k] : inc[k];
+    });
+
+    if ('unite_popup_rules' in out) {
+      out.unite_popup_rules = !!(cur.unite_popup_rules || inc.unite_popup_rules);
+    }
+
+    return JSON.stringify(out);
+  }
+
+  dom.mergeBtn.addEventListener('click', () => {
+    const text = dom.output.textContent.trim();
+    dom.mergeCurrentRule.textContent = (text === DEFAULT_TIP) ? '' : text;
+    dom.mergeOutput.textContent = '';
+    dom.mergeOverlay.style.display = 'flex';
+  });
+
+  dom.editBtn.addEventListener('click', () => {
+    dom.mergeOverlay.style.display = 'none';
+  });
+
+  dom.doMergeBtn.addEventListener('click', () => {
+    const cur = dom.mergeCurrentRule.textContent.trim();
+    const inc = dom.mergeInput.value.trim();
+
+    if (!cur) return toast('当前规则为空');
+    if (!inc) return toast('请输入需要合并的规则');
+
+    try {
+      dom.mergeOutput.textContent = mergeRules(cur, inc);
+    } catch (e) {
+      dom.mergeOutput.textContent = '';
+      toast(e.message || '合并失败，请检查规则格式');
+    }
+  });
+
+  dom.clearMergeInput.addEventListener('click', () => {
+    dom.mergeInput.value = '';
+    dom.mergeOutput.textContent = '';
+  });
+
+  dom.copyMergeBtn.addEventListener('click', () => copyText(dom.mergeOutput.textContent.trim()));
+
+  /* ---------------- 复制 / 帮助 ---------------- */
+
+  dom.copyBtn.addEventListener('click', () => {
+    const text = dom.output.textContent.trim();
+    copyText(text === DEFAULT_TIP ? '' : text);
+  });
+
+  dom.helpBtn.addEventListener('click', () => { dom.helpModal.style.display = 'flex'; });
+  dom.closeModal.addEventListener('click', () => { dom.helpModal.style.display = 'none'; });
+  dom.helpModal.addEventListener('click', e => {
+    if (e.target === dom.helpModal) dom.helpModal.style.display = 'none';
+  });
+})();
 </script>
 </body>
 </html>
